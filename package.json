@@ -1,7 +1,7 @@
 {
   "name": "workflow-sass",
   "version": "1.0.0",
-  "description": "workflow de aula para iniciar os trabalhos com sass",
+  "description": "workflow com sass",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,7 @@
     "certificação",
     "bootstrap"
   ],
-  "author": "Keven Jesus",
+  "author": "Evandro Melos",
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",
