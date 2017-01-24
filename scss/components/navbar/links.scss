@@ -1,0 +1,4 @@
+.navbar-links {
+  float: right;
+  @extend %navbar-item-format;
+}

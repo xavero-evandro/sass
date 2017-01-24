@@ -1,0 +1,30 @@
+@mixin theme($theme-name, $text-color, $bg-color, $border-bottom) {
+  nav.#{$theme-name} {
+    background-image: -webkit-linear-gradient(rgba(#000, 0.9), $bg-color);
+    background-image: -o-linear-gradient(rgba(#000, 0.9), $bg-color);
+    background-image: linear-gradient(rgba(#000, 0.9), $bg-color);
+  }
+  .#{$theme-name} {
+    .navbar-brand,
+    .navbar-links {
+      li {
+        a {
+          text-decoration: $navbar-link-text-decoration;
+          padding: $navbar-link-padding;
+          &:link,
+          &:visited {
+            color: $text-color;
+            transition: background-color 0.3s, box-shadow 0.3s, color 0.5s;
+          }
+          &:hover,
+          &:active {
+            color: #fff;
+            background-color: $bg-color;
+            border-bottom: $border-bottom;
+            box-shadow: $navbar-link-hover-box-shadow;
+          }
+        }
+      }
+    }
+  }
+}

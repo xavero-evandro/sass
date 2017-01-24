@@ -1,0 +1,11 @@
+nav {
+  margin: $navbar-margin;
+  width: $navbar-width;
+  height: $navbar-height;
+  padding: $navbar-padding;
+  box-shadow: $navbar-box-shadow;
+}
+
+@include theme('blue-theme', $navbar-blue-color, $navbar-blue-bgcolor, $navbar-blue-border);
+@include theme('green-theme', $navbar-green-color, $navbar-green-bgcolor, $navbar-green-border);
+@include theme('orange-theme', $navbar-orange-color, $navbar-orange-bgcolor, $navbar-orange-border);

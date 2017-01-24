@@ -1,34 +1,56 @@
-const gulp = require("gulp");
-const sass = require("gulp-sass");
-const notify = require("gulp-notify");
+'use strict';
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var htmlmin = require('gulp-htmlmin');
+var uglify = require('gulp-uglify');
+var SCSS_SRC = ['./scss/**/*.scss'];
+var HTML_SRC = ['./**/*.html'];
+var JS_SRC = ['./js/**/*.js'];
 
-/*
+/*------------------------------------
+ * Tasks Definitions
+ *----------------------------------*/
 
- Task responsável por recuperar todos arquivos no formato .scss e .sass
- e retornar para pasta css que será criada automaticamente.
-
- */
-
-gulp.task("sass", function () {
-    return gulp.src(['./sass/*.sass', './scss/*.scss'])
-        .pipe(sass())
-        .on("error", notify.onError({title: "erro ao compilar", message: "<%= error.message %>"}))
-        .pipe(gulp.dest("./css"))
+/* SASS Compiler & Minifier */
+gulp.task('sass', function() {
+    return gulp.src('./scss/style.scss')
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(gulp.dest('./dist/css'));
 });
 
-/*
-
- Task responsável por executar de fundo todas a mudanças que houver nos arquivos
-
- */
-
-gulp.task("sass:watch", function () {
-    gulp.watch("./sass/*.sass", ['sass']);
-    gulp.watch("./scss/*.scss", ['sass']);
+/* Minify HTML */
+gulp.task('html-minify', function() {
+    return gulp.src(HTML_SRC)
+        .pipe(htmlmin({collapseWhitespace: true}))
+        .pipe(gulp.dest('./dist/'));
 });
 
-/*
- Task default para iniciar apenas com o comando "gulp" no terminal
- */
+/* Uglify Javascript */
+gulp.task('js-uglify', function() {
+    return gulp.src(JS_SRC)
+        .pipe(uglify({mangle: true}))
+        .pipe(gulp.dest('./dist/js'));
+});
 
-gulp.task("default", ['sass', 'sass:watch']);
+
+/*------------------------------------
+ * Watchers Definitions
+ *----------------------------------*/
+
+gulp.task('sass:watch', function() {
+    gulp.watch(SCSS_SRC, ['sass']);
+});
+
+gulp.task('html:watch', function() {
+    gulp.watch(HTML_SRC, ['html-minify']);
+});
+
+gulp.task('js:watch', function() {
+    gulp.watch(JS_SRC, ['js-uglify']);
+});
+
+// Watches everything
+gulp.task('watch-all', ['sass:watch', 'html:watch', 'js:watch']);
+
+// Default task
+gulp.task('default', ['sass','html-minify','js-uglify']);
